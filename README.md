@@ -1,14 +1,7 @@
-## Consul Terraform Sync Module <!-- update module title -->
+## Consul Terraform Sync Module for Fortinet
 
-This section begins the template for the module README used for documentation.
 
-The title of the README should include the network infrastructure along with the high level feature of the module. For example, _"MyProvider Firewall Address Group module for Network Infrastructure Automation (NIA)"_ or _"MyProvider LB Service Group module for Consul Terraform Sync"_
-
-In the first section after the title, introduce the high level automation goal of the module and how it works in conjunction with Consul Terraform Sync. An example summary:
-
-This Terraform module creates an address group for MyProvider Firewall for each service and adds service IP addresses to the groups. Using the module in automation with [Consul Terraform Sync](https://www.consul.io/docs/nia) will dynamically add or remove service instances from the address group based on [Consul service discovery](https://www.consul.io/).
-
-<!-- end replace -->
+This Terraform module creates an address group for Fortinet Firewall for each service and adds service IP addresses to the groups. Using the module in automation with [Consul Terraform Sync](https://www.consul.io/docs/nia) will dynamically add or remove service instances from the address group based on [Consul service discovery](https://www.consul.io/).
 
 ## Feature
 
