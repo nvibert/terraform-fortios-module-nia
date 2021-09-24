@@ -2,9 +2,8 @@ terraform {
   required_providers {
     # Provider source is used for Terraform discovery and installation of
     # providers. Declare source for all providers required by the module.
-    myprovider = {
-      source  = "namespace/myprovider"
-      version = "~>1.1.0"
+    fortios = {
+      source  = "fortinetdev/fortios"
     }
   }
 }
@@ -15,13 +14,13 @@ terraform {
 # The example block below describes creating an address group for each Consul
 # service and applies an existing policy to the group.
 #
-resource "myprovider_address_group" "consul_service" {
-  for_each = local.consul_services
+resource "fortios_firewall_address" "consul_service" {
+  for_each = var.services
+  end_ip     = "255.255.255.0"
+  name       = each.value.name
+  start_ip   = each.value.address
+} 
 
-  name     = "${var.address_group_prefix}${each.key}"
-  tags     = var.address_group_tags
-  policies = [each.value.cts_user_defined_meta["policy_name"]]
-}
 
 #
 # You can utilize the locals block to transform the var.services variable
@@ -30,7 +29,9 @@ resource "myprovider_address_group" "consul_service" {
 #
 # The example below converts var.services to a map of service names to a list
 # of service instances.
-locals {
+
+
+#locals {
   # Group service instances by service name
   # consul_services = {
   #   "app" = [
@@ -41,7 +42,10 @@ locals {
   #     }
   #   ]
   # }
-  consul_services = {
-    for id, s in var.services : s.name => s...
-  }
-}
+#  consul_services = {
+#    for id, s in var.services : s.name => s...
+#  }
+#}
+
+
+
