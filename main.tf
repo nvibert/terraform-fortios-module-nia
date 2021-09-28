@@ -19,7 +19,7 @@ provider "fortios" {
 #
 resource "fortios_firewall_address" "consul_service" {
   for_each = var.services
-  end_ip     = "255.255.255.0"
+  end_ip     = lookup(var.services.value["meta"], "subnet_mask", "255.255.255.255")
   name       = each.value.name
   start_ip   = each.value.address
 } 
