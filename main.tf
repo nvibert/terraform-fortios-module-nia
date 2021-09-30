@@ -16,7 +16,7 @@ terraform {
 #
 resource "fortios_firewall_address" "consul_service" {
   for_each = var.services
-  name = each.value.name
+  name = each.value.id
   subnet     = "${each.value.address} ${lookup(each.value.meta, "subnet_mask", "255.255.255.255")}"
   type       = "ipmask"
   visibility = "enable"
