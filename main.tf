@@ -19,36 +19,25 @@ provider "fortios" {
 #
 resource "fortios_firewall_address" "consul_service" {
   for_each = var.services
-  end_ip     = lookup(var.services.value["meta"], "subnet_mask", "255.255.255.255")
-  name       = each.value.name
-  start_ip   = each.value.address
-} 
+  name = each.value.name
+  subnet     = "${each.value.address} ${lookup(each.value.meta, "subnet_mask", "255.255.255.255")}"
+  type       = "ipmask"
+  visibility = "enable"
+}
 
 
-#
-# You can utilize the locals block to transform the var.services variable
-# into a data structure for your module. For more examples of common data
-# transformations visit the project wiki.
-#
-# The example below converts var.services to a map of service names to a list
-# of service instances.
-
-
-#locals {
-  # Group service instances by service name
-  # consul_services = {
-  #   "app" = [
-  #     {
-  #       "id" = "app-id-01"
-  #       "name" = "app"
-  #       "node_address" = "192.168.10.10"
-  #     }
-  #   ]
-  # }
-#  consul_services = {
-#    for id, s in var.services : s.name => s...
-#  }
-#}
-
+resource "fortios_firewall_addrgrp" "ctsAddrGroup" {
+  allow_routing = "disable"
+  color         = 0
+  exclude       = "disable"
+  name          = "groupCts"
+  visibility    = "enable"
+  dynamic "member" {
+    for_each = fortios_firewall_address.consul_service
+    content {
+      name = member.value["name"]
+    }
+  }
+}
 
 
