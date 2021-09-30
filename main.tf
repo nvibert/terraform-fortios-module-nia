@@ -8,9 +8,6 @@ terraform {
   }
 }
 
-provider "fortios" {
-  
-}
 #
 # Declare resource blocks to describe module behaviors for the infrastructure.
 #
