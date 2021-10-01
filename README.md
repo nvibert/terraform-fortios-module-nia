@@ -68,7 +68,7 @@ terraform_provider "fortios" {
 
 
 task {
- name        = "fortinet-test"
+ name        = "fortinet"
  description = "fortinet"
  providers   = ["fortios"]
  source      = "nvibert/module-nia/fortios"
@@ -77,14 +77,5 @@ task {
  #variable_files = ["../"]
 }
 
-
-driver "terraform" {
-  required_providers = {
-    myprovider = {
-      source  = "namespace/myprovider"
-      version = "1.1.2"
-    }
-  }
-}
 ```
 
