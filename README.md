@@ -79,3 +79,43 @@ task {
 
 ```
 
+**User Config for Consul Terraform Sync Enterprise**
+
+Note that you would need a token from Terraform Cloud (or Terraform Enterprise) to authenticate against TFC/TFE.
+
+cts-config.hcl
+```hcl
+consul {
+  address = "localhost:8500"
+}
+
+driver "terraform-cloud" {
+  hostname = "https://app.terraform.io"
+  organization = "nicovibert-org"
+  token = "XXXXXXXXXXX"
+
+  required_providers {
+    fortios = {
+      source = "fortinetdev/fortios"
+    }
+  }
+}
+
+terraform_provider "fortios" {
+    hostname = ""
+    insecure = ""
+    token = ""
+}
+
+
+task {
+ name        = "fortinet"
+ description = "fortinet"
+ providers   = ["fortios"]
+ source      = "nvibert/module-nia/fortios"
+ # version     = "1.2.0"
+ services    = ["fortinet-service"]
+ #variable_files = ["../"]
+}
+
+```
